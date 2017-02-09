@@ -1,3 +1,5 @@
+CREATE DATABASE LibraryDB;
+
 CREATE TABLE [dbo].[Readers] (
     [Id]               INT           NOT NULL,
     [Year]             INT           NULL,
@@ -14,5 +16,20 @@ CREATE TABLE [dbo].[Readers] (
     [PassportData]     NVARCHAR (50) NULL,
     [RegistrationDate] DATE          DEFAULT (getdate()) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Books] (
+    [InventaryNumber]       INT           NOT NULL,
+    [Section]               NVARCHAR (10) NULL,
+    [SectionNumber]         NVARCHAR (10) NULL,
+    [Author]                NVARCHAR (30) NULL,
+    [Name]                  NVARCHAR (30) NOT NULL,
+    [AdditionalInformation] NVARCHAR (50) NULL,
+    [HavkinaNumber]         NVARCHAR (10) NULL,
+    [Annotation]            NVARCHAR (50) NULL,
+    [Reader]                INT           NULL,
+    [DateOfIssue]           DATE          DEFAULT ('1900-01-01') NULL,
+    PRIMARY KEY CLUSTERED ([InventaryNumber] ASC),
+    FOREIGN KEY ([Reader]) REFERENCES [dbo].[Readers] ([Id])
 );
 

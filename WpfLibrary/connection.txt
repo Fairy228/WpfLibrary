@@ -1,0 +1,1 @@
+﻿Data Source=FAIRY\SQLEXPRESS;AttachDbFilename=E:\WpfLibrary\WpfLibrary\bin\Debug\LibraryDB.mdf;Integrated Security=True

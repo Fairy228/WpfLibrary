@@ -20,8 +20,8 @@ namespace WpfLibrary.Logic
 
         void AddReader(Reader newReader);
 
-        void DeleteReader(Reader reader);
+        //void DeleteReader(Reader reader);
 
-        void GetReader(string surname);
+        Reader GetReader(string surname);
     }
 }

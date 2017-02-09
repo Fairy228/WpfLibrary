@@ -1,0 +1,18 @@
+CREATE TABLE [dbo].[Readers] (
+    [Id]               INT           NOT NULL,
+    [Year]             INT           NULL,
+    [Name]             NVARCHAR (20) NULL,
+    [Surname]          NVARCHAR (20) NULL,
+    [Patronymic]       NVARCHAR (20) NULL,
+    [YearOfBirth]      INT           NULL,
+    [Education]        NVARCHAR (20) NULL,
+    [Job]              NVARCHAR (20) NULL,
+    [Position]         NVARCHAR (20) NULL,
+    [WorkPhone]        NVARCHAR (20) NULL,
+    [Adress]           NVARCHAR (50) NULL,
+    [Phone]            NVARCHAR (20) NULL,
+    [PassportData]     NVARCHAR (50) NULL,
+    [RegistrationDate] DATE          DEFAULT (getdate()) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

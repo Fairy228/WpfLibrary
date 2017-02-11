@@ -92,6 +92,7 @@ namespace WpfLibrary
             FindReader_PhoneTBC.Text = "Телефон: " + reader.Phone;
             FindReader_PassportDataTBC.Text = "Пасспортные данные: " + reader.PassportData;
             FindReader_RegistrationDateTBC.Text = "Дата регистрации: " + reader.RegistrationDate.ToString();
+            NameOfReaderTBC.Text = reader.Surname + " " + reader.Name + " " + reader.Patronymic;
             if (reader.Surname != "")
             {
                 BooksDG.ItemsSource = lib.GetReadersBooks(reader);
@@ -119,38 +120,39 @@ namespace WpfLibrary
                 if (BooksDG.Items != null && BooksDG.SelectedIndex != -1 && BooksDG.SelectedItem != null)
                 {
                     Book book = new Book();
-                    Book book1 = new Book();
+                    Book tempBook;
                     string Idstr = ""; ;
-                    for (int i = 7; i < AddReader_IdTBX.Text.Length; i++)
-                        Idstr += AddReader_IdTBX.Text[i];
+                    for (int i = 7; i < FindReader_IdTBXC.Text.Length; i++)
+                        Idstr += FindReader_IdTBXC.Text[i];
                     int Id = int.Parse(Idstr);
                     MessageBoxResult MSBX = MessageBox.Show("Вы действительно хотите удалить книгу " + book.Name + " из карты текущего читателя?", "Внимание!",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (MSBX == MessageBoxResult.Yes)
                     {
                         Reader reader = lib.GetReader(Id);
-                        book = (Book)ItemsDG.SelectedItem;
-                        book1 = lib.GetBook(book.InventaryNumber);
-                        lib.DeleteBookFromReader(book1);
+                        tempBook = (Book)BooksDG.SelectedItem;
+                        book = lib.GetBook(tempBook.InventaryNumber);
+                        lib.DeleteBookFromReader(book);
                         BooksDG.ItemsSource = lib.GetReadersBooks(reader);
+                        MessageBox.Show("Читатель сдал книгу!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Ошибка!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void AddBookToReaderButton1_Click(object sender, RoutedEventArgs e)
         {
-            if (ItemsDG.Items != null && ItemsDG.SelectedIndex != -1 && AddReader_IdTBX.Text.Length > 7)
+            if (ItemsDG.Items != null && ItemsDG.SelectedIndex != -1)
             {
                 Book book = new Book();
                 Book tempBook;
                 string Idstr = ""; ;
-                for (int i = 7; i < AddReader_IdTBX.Text.Length; i++)
-                    Idstr += AddReader_IdTBX.Text[i];
+                for (int i = 7; i < FindReader_IdTBXC.Text.Length; i++)
+                    Idstr += FindReader_IdTBXC.Text[i];
                 int Id = int.Parse(Idstr);
                 MessageBoxResult MSBX = MessageBox.Show("Вы действительно хотите записать книгу " + book.Name + " на текущего читателя?", "Внимание!",
                     MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -298,9 +300,9 @@ namespace WpfLibrary
                 string inStock;
                 if (book.DateOfIssue != new DateTime(1900, 01, 01))  //проверяю в библиотеке книга или выдана
                 {                                                    //для формирования сообщения
-                    Reader reader = lib.GetReader(book.ReaderId);
+                    Reader reader = lib.GetReader(int.Parse(book.ReaderId));
                     inStock = "Книга выдана читателю " + reader.Surname + " " +
-                        reader.Name + " под номером " + reader.Id + "/n" +
+                        reader.Name + " под номером " + reader.Id + "\n" +
                         book.DateOfIssue.Date + ".";
                 }
                 else
@@ -320,7 +322,28 @@ namespace WpfLibrary
 
         private void BooksDG_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            if (BooksDG.SelectedIndex != -1)
+            {
+                Book tempBook = (Book)BooksDG.SelectedItem;
+                Book book = lib.GetBook(tempBook.InventaryNumber);
+                string message;                                                //для формирования сообщения
+                Reader reader = lib.GetReader(book.ReaderId);
+                TimeSpan ts = DateTime.Now - book.DateOfIssue;
+                if (ts.Days <= 30)
+                {
+                    message = "Аннотация: " + book.Annotation + "\n" +
+                        "Выдана " + book.DateOfIssue + "\n" +
+                        "Дней до просрочки: " + (30 - ts.Days);
+                }
+                else
+                {
+                    message = "Аннотация: " + book.Annotation + "\n" +
+                        "Выдана " + book.DateOfIssue + "\n" +
+                        "Книга просрочена. Дней просрочки: " + (ts.Days - 30);
+                }
+                string header = "'" + book.Name + "'";
+                MessageBox.Show(message, header, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

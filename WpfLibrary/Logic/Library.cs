@@ -547,7 +547,6 @@ namespace WpfLibrary.Logic
                     newReader.PassportData = reader[12].ToString();
                     newReader.RegistrationDate = DateTime.Parse(reader[13].ToString());
                 }
-                cmd.Parameters.Clear();
                 return newReader;
             }
             catch (SqlException ex)
@@ -561,6 +560,7 @@ namespace WpfLibrary.Logic
             finally
             {
                 connection.Close();
+                cmd.Parameters.Clear();
             }
         }
 
@@ -571,8 +571,9 @@ namespace WpfLibrary.Logic
                 connection.Open();
                 cmd.Parameters.AddWithValue("BookId", Book.InventaryNumber);
                 cmd.Parameters.AddWithValue("ReaderId", Reader.Id);
+                cmd.Parameters.AddWithValue("DateOfIssue", DateTime.Now.Date);
                 cmd.CommandText = @"UPDATE [Books]
-                SET Reader = @ReaderId WHERE Id = @BookId";
+                SET Reader = @ReaderId, DateOfIssue = @DateOfIssue WHERE InventaryNumber = @BookId";
                 cmd.ExecuteNonQuery();
             }
             catch (FormatException ex)
@@ -596,8 +597,9 @@ namespace WpfLibrary.Logic
             {
                 connection.Open();
                 cmd.Parameters.AddWithValue("BookId", Book.InventaryNumber);
+                cmd.Parameters.AddWithValue("DateOfIssue", new DateTime(1900, 01, 01));
                 cmd.CommandText = @"UPDATE [Books]
-                SET Reader = Null WHERE Id = @BookId";
+                SET Reader = NULL, DateOfIssue = @DateOfIssue WHERE InventaryNumber = @BookId";
                 cmd.ExecuteNonQuery();
             }
             catch (FormatException ex)

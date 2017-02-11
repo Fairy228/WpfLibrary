@@ -85,20 +85,18 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="180"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
+                                <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
                             <DataGrid x:Name="BooksDG" AutoGenerateColumns="False" 
                                       Margin="5" RowHeaderWidth="0"  
                                       CanUserAddRows="False" CanUserDeleteRows="False" 
                                       CanUserResizeColumns="True" CanUserResizeRows="True" 
                                       CanUserSortColumns="True" 
-                                      Grid.RowSpan="4" MouseDoubleClick="BooksDG_MouseDoubleClick">
+                                      MouseDoubleClick="BooksDG_MouseDoubleClick">
                            <!--Собсно мое решение как представить список книг-->     
                                 <DataGrid.Columns>
                                     <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Номер" FontSize="20" Binding="{Binding InventaryNumber}">
@@ -152,12 +150,21 @@
                                     </DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <Button x:Name="AddBookToReader" Grid.Column="1" Grid.Row="1" Click="AddBookToReaderButton_Click">
-                                <TextBlock Text="Добавить" Width="130" TextWrapping="Wrap"/>
-                            </Button>
-                            <Button x:Name="DeleteBookFromReaderButton" Grid.Column="1" Grid.Row="2" Click="DeleteBookFromReaderButton_Click">
-                                <TextBlock Text=" Удалить" Width="130" TextWrapping="Wrap"/>
-                            </Button>
+                            <TextBlock x:Name="NameOfReaderTBC" Grid.Row="1" FontStyle="Italic"/>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Button x:Name="AddBookToReader" Margin="15" Grid.Row="1" Click="AddBookToReaderButton_Click">
+                                    <TextBlock Text="Добавить" Width="130" TextWrapping="Wrap"/>
+                                </Button>
+                                <Button x:Name="DeleteBookFromReaderButton" Grid.Row="2" Margin="15" Click="DeleteBookFromReaderButton_Click">
+                                    <TextBlock Text=" Удалить" Width="130" TextWrapping="Wrap"/>
+                                </Button>
+                            </Grid>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Добавить" Height="22" VerticalAlignment="Bottom">
@@ -194,7 +201,7 @@
                                     <TextBlock Text="Рабочий телефон" Margin="5"/>
                                     <TextBox x:Name="AddReader_WorkPhoneTBX" MaxLength="20" Margin="5"/>
                                     <TextBlock Text="Адрес" Margin="5"/>
-                                    <TextBox x:Name="AddReader_AdressTBX" MaxLength="20" Margin="5"/>
+                                    <TextBox x:Name="AddReader_AdressTBX" MaxLength="50" Margin="5"/>
                                     <TextBlock Text="Телефон" Margin="5"/>
                                     <TextBox x:Name="AddReader_PhoneTBX" MaxLength="20" Margin="5"/>
                                     <TextBlock Text="Пасспортные данные" Margin="5"/>
@@ -319,19 +326,19 @@
                                     <TextBlock Margin="5" Text="Инвентарный номер:"/>
                                     <TextBox Name="AddBook_InventaryNumberTBX" Margin="10"/>
                                     <TextBlock Margin="5" Text="Раздел:"/>
-                                    <TextBox Name="AddBook_SectionTBX" Margin="10"/>
+                                    <TextBox Name="AddBook_SectionTBX" MaxLength="10" Margin="10"/>
                                     <TextBlock Margin="5" TextWrapping="Wrap" Text="Номер раздела:"/>
-                                    <TextBox Name="AddBook_SectionNumberTBX" Margin="10"/>
+                                    <TextBox Name="AddBook_SectionNumberTBX" MaxLength="10" Margin="10"/>
                                     <TextBlock Margin="5" Text="Автор:"/>
-                                    <TextBox Name="AddBook_AuthorTBX" Margin="10"/>
+                                    <TextBox Name="AddBook_AuthorTBX" MaxLength="30" Margin="10"/>
                                     <TextBlock Margin="5" TextWrapping="Wrap" Text="Название:"/>
-                                    <TextBox Name="AddBook_NameTBX" Margin="10"/>
+                                    <TextBox Name="AddBook_NameTBX" MaxLength="30" Margin="10"/>
                                     <TextBlock Margin="5" Text="Доп. информация:"/>
-                                    <TextBox Name="AddBook_AdditionalInformationTBX" Height="90" Margin="10"/>
+                                    <TextBox Name="AddBook_AdditionalInformationTBX" MaxLength="50" Height="90" Margin="10"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Column="1">
                                     <TextBlock Margin="5" Text="Номер по т. Хавкиной:"/>
-                                    <TextBox Name="AddBook_HavkinaNumberTBX" Margin="10"/>
+                                    <TextBox Name="AddBook_HavkinaNumberTBX" MaxLength="10" Margin="10"/>
                                     <TextBlock Margin="5" Text="Аннотация:"/>
                                     <TextBox Name="AddBook_AnnotationTBX" MaxLength="150" Height="90" Margin="10"/>
                                     <Button x:Name="AddBookButton" Content="Добавить" Width="130" Margin="0,40,0,0" Click="AddBookButton_Click"/>

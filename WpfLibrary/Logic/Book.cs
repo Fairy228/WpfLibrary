@@ -22,11 +22,6 @@ namespace WpfLibrary.Logic
             get; set;
         }
 
-        public string SectionNumber
-        {
-            get; set;
-        }
-
         public string Author
         {
             get; set;

@@ -19,7 +19,7 @@ namespace WpfLibrary
             lib = new Library();
         }
 
-        private void AddReaderButton_Click(object sender, RoutedEventArgs e)
+        private void AddReaderButton_Click(object sender, RoutedEventArgs e)    
         {
             try
             {
@@ -54,6 +54,19 @@ namespace WpfLibrary
                         lib.AddReader(reader);
                         MessageBox.Show("Читатель успешно добавлен!", "Успех!",
                             MessageBoxButton.OK, MessageBoxImage.Information);
+                        AddReader_IdTBX.Text = "";
+                        AddReader_YearTBX.Text = "";
+                        AddReader_NameTBX.Text = "";
+                        AddReader_SurnameTBX.Text = "";
+                        AddReader_PatronymicTBX.Text = "";
+                        AddReader_YearOfBirthTBX.Text = "";
+                        AddReader_EducationTBX.Text = "";
+                        AddReader_JobTBX.Text = "";
+                        AddReader_PositionTBX.Text = "";
+                        AddReader_WorkPhoneTBX.Text = "";
+                        AddReader_AdressTBX.Text = "";
+                        AddReader_PhoneTBX.Text = "";
+                        AddReader_PassportDataTBX.Text = "";
                     }
                 }
                 else MessageBox.Show("Заполните обязательные поля!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -196,8 +209,7 @@ namespace WpfLibrary
             try
             {
                 if (GetBook_InventaryNumberTBX.Text == "" && GetBook_NameTBX.Text == "" &&
-                    GetBook_AuthorTBX.Text == "" && GetBook_SectionTBX.Text == "" &&
-                    GetBook_SectionNumberTBX.Text == "")
+                    GetBook_AuthorTBX.Text == "")
                 {
                     ItemsDG.ItemsSource = lib.GetBooks();
                 }
@@ -218,19 +230,6 @@ namespace WpfLibrary
                 {
                     List<Book> books = lib.GetBooks_Author(GetBook_AuthorTBX.Text);
                     ItemsDG.ItemsSource = books;
-                }
-                else if (GetBook_NameTBX.Text == "" && GetBook_InventaryNumberTBX.Text == "" &&
-                    GetBook_AuthorTBX.Text == "" && GetBook_SectionTBX.Text != "" &&
-                    GetBook_SectionNumberTBX.Text == "")
-                {
-                    List<Book> books = lib.GetBooks(GetBook_SectionTBX.Text);
-                    ItemsDG.ItemsSource = books;
-                }
-                else if (GetBook_NameTBX.Text == "" && GetBook_InventaryNumberTBX.Text == "" &&
-                    GetBook_AuthorTBX.Text == "" && GetBook_SectionTBX.Text != "" &&
-                    GetBook_SectionNumberTBX.Text != "")
-                {
-                    List<Book> books = lib.GetBooks(GetBook_SectionTBX.Text, GetBook_SectionNumberTBX.Text);
                 }
             }
             catch (FormatException ex)
@@ -257,12 +256,12 @@ namespace WpfLibrary
 
                     book.InventaryNumber = int.Parse(AddBook_InventaryNumberTBX.Text);
                     book.Section = AddBook_SectionTBX.Text;
-                    book.SectionNumber = AddBook_SectionNumberTBX.Text;
                     book.Author = AddBook_AuthorTBX.Text;
                     book.Name = AddBook_NameTBX.Text;
                     book.AdditionalInformation = AddBook_AdditionalInformationTBX.Text;
                     book.HavkinaNumber = AddBook_HavkinaNumberTBX.Text;
                     book.Annotation = AddBook_AnnotationTBX.Text;
+                    book.DateOfIssue = new DateTime(1900, 01, 01);
 
                     if (lib.GetBook(book.InventaryNumber).InventaryNumber == book.InventaryNumber)
                         MessageBox.Show("Книга с таким номером существует!", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -272,7 +271,6 @@ namespace WpfLibrary
                         MessageBox.Show("Книга добавлена!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
                         AddBook_InventaryNumberTBX.Text = "";
                         AddBook_SectionTBX.Text = "";
-                        AddBook_SectionNumberTBX.Text = "";
                         AddBook_AuthorTBX.Text = "";
                         AddBook_NameTBX.Text = "";
                         AddBook_AdditionalInformationTBX.Text = "";

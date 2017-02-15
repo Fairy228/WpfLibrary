@@ -30,16 +30,15 @@ namespace WpfLibrary.Logic
                 cmd.Parameters.AddWithValue("Name", newBook.Name);
                 cmd.Parameters.AddWithValue("Author", newBook.Author);
                 cmd.Parameters.AddWithValue("Section", newBook.Section);
-                cmd.Parameters.AddWithValue("SectionNumber", newBook.SectionNumber);
                 cmd.Parameters.AddWithValue("AdditionalInformation", newBook.AdditionalInformation);
                 cmd.Parameters.AddWithValue("Annotation", newBook.Annotation);
                 cmd.Parameters.AddWithValue("HavkinaNumber", newBook.HavkinaNumber);
 
                 cmd.CommandText = @"INSERT [Books] ([InventaryNumber],
-                    [Section], [SectionNumber], [Author], [Name],
+                    [Section], [Author], [Name],
                     [AdditionalInformation], [HavkinaNumber], [Annotation])
                     VALUES (@InventaryNumber,
-                    @Section, @SectionNumber, @Author, @Name,
+                    @Section, @Author, @Name,
                     @AdditionalInformation, @HavkinaNumber, @Annotation)";
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
@@ -97,14 +96,13 @@ namespace WpfLibrary.Logic
                     reader.Read();
                     book.InventaryNumber = int.Parse(reader[0].ToString());
                     book.Section = reader[1].ToString();
-                    book.SectionNumber = reader[2].ToString();
-                    book.Author = reader[3].ToString();
-                    book.Name = (reader[4].ToString());
-                    book.AdditionalInformation = reader[5].ToString();
-                    book.HavkinaNumber = reader[6].ToString();
-                    book.Annotation = reader[7].ToString();
-                    book.ReaderId = reader[8].ToString();
-                    book.DateOfIssue = DateTime.Parse(reader[9].ToString());
+                    book.Author = reader[2].ToString();
+                    book.Name = (reader[3].ToString());
+                    book.AdditionalInformation = reader[4].ToString();
+                    book.HavkinaNumber = reader[5].ToString();
+                    book.Annotation = reader[6].ToString();
+                    book.ReaderId = reader[7].ToString();
+                    book.DateOfIssue = DateTime.Parse(reader[8].ToString());
                 }
                 cmd.Parameters.Clear();
                 return book;
@@ -137,14 +135,13 @@ namespace WpfLibrary.Logic
                     reader.Read();
                     book.InventaryNumber = int.Parse(reader[0].ToString());
                     book.Section = reader[1].ToString();
-                    book.SectionNumber = reader[2].ToString();
-                    book.Author = reader[3].ToString();
-                    book.Name = (reader[4].ToString());
-                    book.AdditionalInformation = reader[5].ToString();
-                    book.HavkinaNumber = reader[6].ToString();
-                    book.Annotation = reader[7].ToString();
-                    book.ReaderId = reader[8].ToString();
-                    book.DateOfIssue = DateTime.Parse(reader[9].ToString());
+                    book.Author = reader[2].ToString();
+                    book.Name = (reader[3].ToString());
+                    book.AdditionalInformation = reader[4].ToString();
+                    book.HavkinaNumber = reader[5].ToString();
+                    book.Annotation = reader[6].ToString();
+                    book.ReaderId = reader[7].ToString();
+                    book.DateOfIssue = DateTime.Parse(reader[8].ToString());
                 }
                 cmd.Parameters.Clear();
                 return book;
@@ -178,14 +175,13 @@ namespace WpfLibrary.Logic
                         Book book = new Book();
                         book.InventaryNumber = int.Parse(reader[0].ToString());
                         book.Section = reader[1].ToString();
-                        book.SectionNumber = reader[2].ToString();
-                        book.Author = reader[3].ToString();
-                        book.Name = (reader[4].ToString());
-                        book.AdditionalInformation = reader[5].ToString();
-                        book.HavkinaNumber = reader[6].ToString();
-                        book.Annotation = reader[7].ToString();
-                        book.ReaderId = reader[8].ToString();
-                        book.DateOfIssue = DateTime.Parse(reader[9].ToString());
+                        book.Author = reader[2].ToString();
+                        book.Name = (reader[3].ToString());
+                        book.AdditionalInformation = reader[4].ToString();
+                        book.HavkinaNumber = reader[5].ToString();
+                        book.Annotation = reader[6].ToString();
+                        book.ReaderId = reader[7].ToString();
+                        book.DateOfIssue = DateTime.Parse(reader[8].ToString());
                         books.Add(book);
                     }
                 }
@@ -222,14 +218,13 @@ namespace WpfLibrary.Logic
                         Book book = new Book();
                         book.InventaryNumber = int.Parse(reader[0].ToString());
                         book.Section = reader[1].ToString();
-                        book.SectionNumber = reader[2].ToString();
-                        book.Author = reader[3].ToString();
-                        book.Name = (reader[4].ToString());
-                        book.AdditionalInformation = reader[5].ToString();
-                        book.HavkinaNumber = reader[6].ToString();
-                        book.Annotation = reader[7].ToString();
-                        book.ReaderId = reader[8].ToString();
-                        book.DateOfIssue = DateTime.Parse(reader[9].ToString());
+                        book.Author = reader[2].ToString();
+                        book.Name = (reader[3].ToString());
+                        book.AdditionalInformation = reader[4].ToString();
+                        book.HavkinaNumber = reader[5].ToString();
+                        book.Annotation = reader[6].ToString();
+                        book.ReaderId = reader[7].ToString();
+                        book.DateOfIssue = DateTime.Parse(reader[8].ToString());
                         books.Add(book);
                     }
                 }
@@ -250,94 +245,92 @@ namespace WpfLibrary.Logic
             }
         }
 
-        public List<Book> GetBooks(string Section)
-        {
-            try
-            {
-                List<Book> books = new List<Book>();
-                connection.Open();
-                cmd.Parameters.AddWithValue("Section", Section);
-                cmd.CommandText = "SELECT * FROM [Books] WHERE Section = @Section";
-                reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Book book = new Book();
-                        book.InventaryNumber = int.Parse(reader[0].ToString());
-                        book.Section = reader[1].ToString();
-                        book.SectionNumber = reader[2].ToString();
-                        book.Author = reader[3].ToString();
-                        book.Name = (reader[4].ToString());
-                        book.AdditionalInformation = reader[5].ToString();
-                        book.HavkinaNumber = reader[6].ToString();
-                        book.Annotation = reader[7].ToString();
-                        book.ReaderId = reader[8].ToString();
-                        book.DateOfIssue = DateTime.Parse(reader[9].ToString());
-                        books.Add(book);
-                    }
-                }
-                cmd.Parameters.Clear();
-                return books;
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            catch (FormatException ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //public List<Book> GetBooks(string Section)
+        //{
+        //    try
+        //    {
+        //        List<Book> books = new List<Book>();
+        //        connection.Open();
+        //        cmd.Parameters.AddWithValue("Section", Section);
+        //        cmd.CommandText = "SELECT * FROM [Books] WHERE Section = @Section";
+        //        reader = cmd.ExecuteReader();
+        //        if (reader.HasRows)
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                Book book = new Book();
+        //                book.InventaryNumber = int.Parse(reader[0].ToString());
+        //                book.Section = reader[1].ToString();
+        //                book.Author = reader[2].ToString();
+        //                book.Name = (reader[3].ToString());
+        //                book.AdditionalInformation = reader[4].ToString();
+        //                book.HavkinaNumber = reader[5].ToString();
+        //                book.Annotation = reader[6].ToString();
+        //                book.ReaderId = reader[7].ToString();
+        //                book.DateOfIssue = DateTime.Parse(reader[7].ToString());
+        //                books.Add(book);
+        //            }
+        //        }
+        //        cmd.Parameters.Clear();
+        //        return books;
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    catch (FormatException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
 
-        public List<Book> GetBooks(string Section, string SectionNumber)
-        {
-            try
-            {
-                List<Book> books = new List<Book>();
-                connection.Open();
-                cmd.Parameters.AddWithValue("Section", Section);
-                cmd.Parameters.AddWithValue("SectionNumber", SectionNumber);
-                cmd.CommandText = "SELECT * FROM [Books] WHERE Section = @Section AND SectionNumber = @SectionNumber";
-                reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Book book = new Book();
-                        book.InventaryNumber = int.Parse(reader[0].ToString());
-                        book.Section = reader[1].ToString();
-                        book.SectionNumber = reader[2].ToString();
-                        book.Author = reader[3].ToString();
-                        book.Name = (reader[4].ToString());
-                        book.AdditionalInformation = reader[5].ToString();
-                        book.HavkinaNumber = reader[6].ToString();
-                        book.Annotation = reader[7].ToString();
-                        book.ReaderId = reader[8].ToString();
-                        book.DateOfIssue = DateTime.Parse(reader[9].ToString());
-                        books.Add(book);
-                    }
-                }
-                cmd.Parameters.Clear();
-                return books;
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            catch (FormatException ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //public List<Book> GetBooks(string Section, string SectionNumber)
+        //{
+        //    try
+        //    {
+        //        List<Book> books = new List<Book>();
+        //        connection.Open();
+        //        cmd.Parameters.AddWithValue("Section", Section);
+        //        cmd.Parameters.AddWithValue("SectionNumber", SectionNumber);
+        //        cmd.CommandText = "SELECT * FROM [Books] WHERE Section = @Section AND SectionNumber = @SectionNumber";
+        //        reader = cmd.ExecuteReader();
+        //        if (reader.HasRows)
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                Book book = new Book();
+        //                book.InventaryNumber = int.Parse(reader[0].ToString());
+        //                book.Section = reader[1].ToString();
+        //                book.Author = reader[2].ToString();
+        //                book.Name = (reader[3].ToString());
+        //                book.AdditionalInformation = reader[4].ToString();
+        //                book.HavkinaNumber = reader[5].ToString();
+        //                book.Annotation = reader[6].ToString();
+        //                book.ReaderId = reader[7].ToString();
+        //                book.DateOfIssue = DateTime.Parse(reader[7].ToString());
+        //                books.Add(book);
+        //            }
+        //        }
+        //        cmd.Parameters.Clear();
+        //        return books;
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    catch (FormatException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
 
         public void AddReader(Reader newReader)
         {
@@ -633,14 +626,13 @@ namespace WpfLibrary.Logic
                         Book book = new Book();
                         book.InventaryNumber = int.Parse(reader[0].ToString());
                         book.Section = reader[1].ToString();
-                        book.SectionNumber = reader[2].ToString();
-                        book.Author = reader[3].ToString();
-                        book.Name = (reader[4].ToString());
-                        book.AdditionalInformation = reader[5].ToString();
-                        book.HavkinaNumber = reader[6].ToString();
-                        book.Annotation = reader[7].ToString();
-                        book.ReaderId = reader[8].ToString();
-                        book.DateOfIssue = DateTime.Parse(reader[9].ToString());
+                        book.Author = reader[2].ToString();
+                        book.Name = (reader[3].ToString());
+                        book.AdditionalInformation = reader[4].ToString();
+                        book.HavkinaNumber = reader[5].ToString();
+                        book.Annotation = reader[6].ToString();
+                        book.ReaderId = reader[7].ToString();
+                        book.DateOfIssue = DateTime.Parse(reader[8].ToString());
                         books.Add(book);
                     }
                 }

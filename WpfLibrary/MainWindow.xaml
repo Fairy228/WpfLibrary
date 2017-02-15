@@ -113,13 +113,6 @@
                                             </Style>
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
-                                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Номер раздела" FontSize="20" Binding="{Binding SectionNumber}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
                                     <DataGridTextColumn Width="*" Header="Автор" FontSize="20" Binding="{Binding Author}">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
@@ -235,11 +228,7 @@
                                 <TextBox Name="GetBook_NameTBX" Margin="10"/>
                                 <TextBlock Text="Автор" VerticalAlignment="Center"/>
                                 <TextBox Name="GetBook_AuthorTBX" Margin="10"/>
-                                <TextBlock Text="Раздел" VerticalAlignment="Center"/>
-                                <TextBox Name="GetBook_SectionTBX" Margin="10"/>
-                                <TextBlock Text="Номер раздела" VerticalAlignment="Center"/>
-                                <TextBox Name="GetBook_SectionNumberTBX" Margin="10"/>
-                                <Button x:Name="SearchBooksButton" Content="Искать" Margin="10" Click="SearchBookButton_Click"/>
+                                <Button x:Name="SearchBookButton" Content="Искать" Click="SearchBookButton_Click"/>
                                 <StackPanel Orientation="Horizontal">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -269,13 +258,6 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
                                     <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Раздел" FontSize="20" Binding="{Binding Section}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Номер раздела" FontSize="20" Binding="{Binding SectionNumber}">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="TextWrapping" Value="Wrap"/>
@@ -326,21 +308,19 @@
                                     <TextBlock Margin="5" Text="Инвентарный номер:"/>
                                     <TextBox Name="AddBook_InventaryNumberTBX" Margin="10"/>
                                     <TextBlock Margin="5" Text="Раздел:"/>
-                                    <TextBox Name="AddBook_SectionTBX" MaxLength="10" Margin="10"/>
-                                    <TextBlock Margin="5" TextWrapping="Wrap" Text="Номер раздела:"/>
-                                    <TextBox Name="AddBook_SectionNumberTBX" MaxLength="10" Margin="10"/>
+                                    <TextBox Name="AddBook_SectionTBX" MaxLength="100" Margin="10"/>
                                     <TextBlock Margin="5" Text="Автор:"/>
                                     <TextBox Name="AddBook_AuthorTBX" MaxLength="30" Margin="10"/>
                                     <TextBlock Margin="5" TextWrapping="Wrap" Text="Название:"/>
-                                    <TextBox Name="AddBook_NameTBX" MaxLength="30" Margin="10"/>
+                                    <TextBox Name="AddBook_NameTBX" MaxLength="100" Margin="10"/>
                                     <TextBlock Margin="5" Text="Доп. информация:"/>
-                                    <TextBox Name="AddBook_AdditionalInformationTBX" MaxLength="50" Height="90" Margin="10"/>
+                                    <TextBox Name="AddBook_AdditionalInformationTBX" MaxLength="200" Height="90" Margin="10"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Column="1">
                                     <TextBlock Margin="5" Text="Номер по т. Хавкиной:"/>
-                                    <TextBox Name="AddBook_HavkinaNumberTBX" MaxLength="10" Margin="10"/>
+                                    <TextBox Name="AddBook_HavkinaNumberTBX" MaxLength="20" Margin="10"/>
                                     <TextBlock Margin="5" Text="Аннотация:"/>
-                                    <TextBox Name="AddBook_AnnotationTBX" MaxLength="150" Height="90" Margin="10"/>
+                                    <TextBox Name="AddBook_AnnotationTBX" MaxLength="400" Height="90" Margin="10"/>
                                     <Button x:Name="AddBookButton" Content="Добавить" Width="130" Margin="0,40,0,0" Click="AddBookButton_Click"/>
                                 </StackPanel>
                             </Grid>

@@ -80,35 +80,66 @@ namespace WpfLibrary
 
         private void FindReaderButton_Click(object sender, RoutedEventArgs e)
         {
-            Reader reader = new Reader();
-            if (FindReader_NameTBX.Text != "Имя: " && FindReader_SurnameTBX.Text != "Фамилия: " &&
-                FindReader_PatronymicTBX.Text != "Отчество: " &&
-                FindReader_NameTBX.Text != "" && FindReader_SurnameTBX.Text != "" && FindReader_PatronymicTBX.Text != "")
-                reader = lib.GetReader(FindReader_NameTBX.Text, FindReader_SurnameTBX.Text, FindReader_PatronymicTBX.Text);
-            else if (FindReader_NameTBX.Text != "Имя: " && FindReader_SurnameTBX.Text != "Фамилия: " &&
-                FindReader_NameTBX.Text != "" && FindReader_SurnameTBX.Text != "")
-                reader = lib.GetReader(FindReader_NameTBX.Text, FindReader_SurnameTBX.Text);
-            else if (FindReader_SurnameTBX.Text != "Фамилия: " && FindReader_SurnameTBX.Text != "")
-                reader = lib.GetReader(FindReader_SurnameTBX.Text);
-
-            FindReader_IdTBXC.Text = "Номер: " + reader.Id;
-            FindReader_YearTBC.Text = "Год: " + reader.Year.ToString();
-            FindReader_NameTBX.Text = "Имя: " + reader.Name;
-            FindReader_SurnameTBX.Text = "Фамилия: " + reader.Surname;
-            FindReader_PatronymicTBX.Text = "Отчество: " + reader.Patronymic;
-            FindReader_YearOfBirthTBC.Text = "Год рождения: " + reader.YearOfBirth.ToString();
-            FindReader_EducationTBC.Text = "Образование: " + reader.Education;
-            FindReader_JobTBC.Text = "Место работы: " + reader.Job;
-            FindReader_PositionTBC.Text = "Должность: " + reader.Position;
-            FindReader_WorkPhoneTBC.Text = "Рабочий телефон: " + reader.WorkPhone;
-            FindReader_AdressTBC.Text = "Адрес: " + reader.Adress;
-            FindReader_PhoneTBC.Text = "Телефон: " + reader.Phone;
-            FindReader_PassportDataTBC.Text = "Пасспортные данные: " + reader.PassportData;
-            FindReader_RegistrationDateTBC.Text = "Дата регистрации: " + reader.RegistrationDate.ToString();
-            NameOfReaderTBC.Text = reader.Surname + " " + reader.Name + " " + reader.Patronymic;
-            if (reader.Surname != "")
+            string content = FindReaderButton.Content.ToString();
+            if (content == "Найти")
             {
-                BooksDG.ItemsSource = lib.GetReadersBooks(reader);
+                Reader reader = new Reader();
+                if (FindReader_NameTBX.Text != "Имя: " && FindReader_SurnameTBX.Text != "Фамилия: " &&
+                    FindReader_PatronymicTBX.Text != "Отчество: " &&
+                    FindReader_NameTBX.Text != "" && FindReader_SurnameTBX.Text != "" && FindReader_PatronymicTBX.Text != "")
+                    reader = lib.GetReader(FindReader_NameTBX.Text, FindReader_SurnameTBX.Text, FindReader_PatronymicTBX.Text);
+                else if (FindReader_NameTBX.Text != "Имя: " && FindReader_SurnameTBX.Text != "Фамилия: " &&
+                    FindReader_NameTBX.Text != "" && FindReader_SurnameTBX.Text != "")
+                    reader = lib.GetReader(FindReader_NameTBX.Text, FindReader_SurnameTBX.Text);
+                else if (FindReader_SurnameTBX.Text != "Фамилия: " && FindReader_SurnameTBX.Text != "")
+                    reader = lib.GetReader(FindReader_SurnameTBX.Text);
+
+                FindReader_IdTBXC.Text = "Номер: " + reader.Id;
+                FindReader_YearTBC.Text = "Год: " + reader.Year.ToString();
+                FindReader_NameTBX.Text = "Имя: " + reader.Name;
+                FindReader_SurnameTBX.Text = "Фамилия: " + reader.Surname;
+                FindReader_PatronymicTBX.Text = "Отчество: " + reader.Patronymic;
+                FindReader_YearOfBirthTBC.Text = "Год рождения: " + reader.YearOfBirth.ToString();
+                FindReader_EducationTBC.Text = "Образование: " + reader.Education;
+                FindReader_JobTBC.Text = "Место работы: " + reader.Job;
+                FindReader_PositionTBC.Text = "Должность: " + reader.Position;
+                FindReader_WorkPhoneTBC.Text = "Рабочий телефон: " + reader.WorkPhone;
+                FindReader_AdressTBC.Text = "Адрес: " + reader.Adress;
+                FindReader_PhoneTBC.Text = "Телефон: " + reader.Phone;
+                FindReader_PassportDataTBC.Text = "Паспортные данные: " + reader.PassportData;
+                FindReader_RegistrationDateTBC.Text = "Дата регистрации: " + reader.RegistrationDate.ToString();
+                NameOfReaderTBC.Text = reader.Surname + " " + reader.Name + " " + reader.Patronymic;
+                if (reader.Surname != "")
+                {
+                    BooksDG.ItemsSource = lib.GetReadersBooks(reader);
+                }
+                FindReaderButton.Content = "Сбросить";
+                FindReader_NameTBX.IsReadOnly = false;
+                FindReader_SurnameTBX.IsReadOnly = true;
+                FindReader_PatronymicTBX.IsReadOnly = true;
+            }
+            else
+            {
+                FindReaderButton.Content = "Найти";
+                BooksDG.ItemsSource = null;
+                FindReader_NameTBX.IsReadOnly = false;
+                FindReader_SurnameTBX.IsReadOnly = false;
+                FindReader_PatronymicTBX.IsReadOnly = false;
+                FindReader_IdTBXC.Text = "Номер: ";
+                FindReader_YearTBC.Text = "Год: ";
+                FindReader_NameTBX.Text = "Имя: ";
+                FindReader_SurnameTBX.Text = "Фамилия: ";
+                FindReader_PatronymicTBX.Text = "Отчество: ";
+                FindReader_YearOfBirthTBC.Text = "Год рождения: ";
+                FindReader_EducationTBC.Text = "Образование: ";
+                FindReader_JobTBC.Text = "Место работы: ";
+                FindReader_PositionTBC.Text = "Должность: ";
+                FindReader_WorkPhoneTBC.Text = "Рабочий телефон: ";
+                FindReader_AdressTBC.Text = "Адрес: ";
+                FindReader_PhoneTBC.Text = "Телефон: ";
+                FindReader_PassportDataTBC.Text = "Паспортные данные: ";
+                FindReader_RegistrationDateTBC.Text = "Дата регистрации: ";
+                NameOfReaderTBC.Text = "";
             }
         }
 
@@ -204,33 +235,35 @@ namespace WpfLibrary
             MainTabControl.SelectedItem = ReadersTabItem;
         }
 
-        private void SearchBookButton_Click(object sender, RoutedEventArgs e)
+        public void SearchBookButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (GetBook_InventaryNumberTBX.Text == "" && GetBook_NameTBX.Text == "" &&
-                    GetBook_AuthorTBX.Text == "")
-                {
-                    ItemsDG.ItemsSource = lib.GetBooks();
-                }
-                else if (GetBook_InventaryNumberTBX.Text != "")
-                {
-                    List<Book> books = new List<Book>();
-                    books.Add(lib.GetBook(int.Parse(GetBook_InventaryNumberTBX.Text)));
-                    ItemsDG.ItemsSource = books;
-                }
-                else if (GetBook_NameTBX.Text != "")
-                {
-                    List<Book> books = new List<Book>();
-                    books.Add(lib.GetBook(GetBook_NameTBX.Text));
-                    ItemsDG.ItemsSource = books;
-                }
-                else if (GetBook_NameTBX.Text == "" && GetBook_InventaryNumberTBX.Text == "" &&
-                    GetBook_AuthorTBX.Text != "")
-                {
-                    List<Book> books = lib.GetBooks_Author(GetBook_AuthorTBX.Text);
-                    ItemsDG.ItemsSource = books;
-                }
+                    if (GetBook_InventaryNumberTBX.Text == "" && GetBook_NameTBX.Text == "" &&
+                        GetBook_AuthorTBX.Text == "")
+                    {
+                        ItemsDG.ItemsSource = lib.GetBooks();
+                    }
+                    else if (GetBook_InventaryNumberTBX.Text != "")
+                    {
+                        List<Book> books = new List<Book>();
+                    if (lib.GetBook(int.Parse(GetBook_InventaryNumberTBX.Text)).Name != null) 
+                            books.Add(lib.GetBook(int.Parse(GetBook_InventaryNumberTBX.Text)));
+                        ItemsDG.ItemsSource = books;
+                    }
+                    else if (GetBook_NameTBX.Text != "")
+                    {
+                        List<Book> books = new List<Book>();
+                    if (lib.GetBook(GetBook_NameTBX.Text).Name != null) 
+                            books.Add(lib.GetBook(GetBook_NameTBX.Text));
+                        ItemsDG.ItemsSource = books;
+                    }
+                    else if (GetBook_NameTBX.Text == "" && GetBook_InventaryNumberTBX.Text == "" &&
+                        GetBook_AuthorTBX.Text != "")
+                    {
+                        List<Book> books = lib.GetBooks_Author(GetBook_AuthorTBX.Text);
+                        ItemsDG.ItemsSource = books;
+                    }
             }
             catch (FormatException ex)
             {
@@ -308,7 +341,8 @@ namespace WpfLibrary
                     inStock = "Книга находится в библиотеке.";
                 }
                 string header = "'" + book.Name + "'";
-                string message = "Аннотация: " + book.Annotation + "\n" + inStock;
+                string message = "Аннотация: " + book.Annotation + "\n" +
+                    "Дополнительная информация: " + book.AdditionalInformation + "\n" + inStock;
                 MessageBox.Show(message, header, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -329,19 +363,47 @@ namespace WpfLibrary
                 TimeSpan ts = DateTime.Now - book.DateOfIssue;
                 if (ts.Days <= 30)
                 {
-                    message = "Аннотация: " + book.Annotation + "\n" +
+                    message = "Аннотация: " + book.Annotation + "\n" + "Дополнительная информация: " +
+                        book.AdditionalInformation + "\n" +
                         "Выдана " + book.DateOfIssue + "\n" +
                         "Дней до просрочки: " + (30 - ts.Days);
                 }
                 else
                 {
-                    message = "Аннотация: " + book.Annotation + "\n" +
+                    message = "Аннотация: " + book.Annotation + "\n" + "Дополнительная информация: " +
+                        book.AdditionalInformation + "\n" +
                         "Выдана " + book.DateOfIssue + "\n" +
                         "Книга просрочена. Дней просрочки: " + (ts.Days - 30);
                 }
                 string header = "'" + book.Name + "'";
                 MessageBox.Show(message, header, MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void ChangeBookButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ItemsDG.SelectedIndex != -1)
+            {
+                Book tempBook = (Book)ItemsDG.SelectedItem;
+                Book book = lib.GetBook(tempBook.InventaryNumber);
+                ChangeBookWindow wnd = new ChangeBookWindow(lib, book);
+                wnd.ShowDialog();
+            }
+        }
+
+        private void FindReader_SurnameTBX_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            FindReader_SurnameTBX.Text = "";
+        }
+
+        private void FindReader_NameTBX_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            FindReader_NameTBX.Text = "";
+        }
+
+        private void FindReader_PatronymicTBX_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            FindReader_PatronymicTBX.Text = "";
         }
     }
 }

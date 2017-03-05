@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WpfLibrary.Logic
 {
-    class Reader
+    public class Reader
     {
 
         public Reader()

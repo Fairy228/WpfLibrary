@@ -58,9 +58,9 @@
                             <StackPanel>
                                 <TextBlock Text="Номер: " Margin="20" x:Name="FindReader_IdTBXC"/>
                                 <TextBlock Text="Год: " Margin="20" x:Name="FindReader_YearTBC"/>
-                                <TextBox Text="Фамилия: " Margin="20" x:Name="FindReader_SurnameTBX"/>
-                                <TextBox Text="Имя: " Margin="20" x:Name="FindReader_NameTBX"/>
-                                <TextBox Text="Отчество:" Margin="20" x:Name="FindReader_PatronymicTBX"/>
+                                <TextBox Text="Фамилия: " Margin="20" x:Name="FindReader_SurnameTBX" MouseDoubleClick="FindReader_SurnameTBX_MouseDoubleClick"/>
+                                <TextBox Text="Имя: " Margin="20" x:Name="FindReader_NameTBX" MouseDoubleClick="FindReader_NameTBX_MouseDoubleClick"/>
+                                <TextBox Text="Отчество:" Margin="20" x:Name="FindReader_PatronymicTBX" MouseDoubleClick="FindReader_PatronymicTBX_MouseDoubleClick"/>
                                 <TextBlock Text="Год рождения: " Margin="20" x:Name="FindReader_YearOfBirthTBC"/>
                                 <TextBlock Text="Образование: " Margin="20" x:Name="FindReader_EducationTBC"/>
                                 <TextBlock Text="Место работы: " Margin="20" x:Name="FindReader_JobTBC"/>
@@ -75,8 +75,7 @@
                                            Width="370" Margin="20" x:Name="FindReader_PassportDataTBC"/>
                                 <TextBlock Text="Дата регистрации: " Margin="20" x:Name="FindReader_RegistrationDateTBC"/>
                             </StackPanel>
-                            <Button x:Name="FindBtn" Grid.Column="2" Click="FindReaderButton_Click">
-                                <TextBlock Text="Найти" Width="130" FontSize="18" FontWeight="Bold"/>
+                            <Button x:Name="FindReaderButton" Content="Найти" Grid.Column="2" Click="FindReaderButton_Click">
                             </Button>
                         </Grid>
                     </TabItem>
@@ -121,13 +120,6 @@
                                         </DataGridTextColumn.ElementStyle>
                                     </DataGridTextColumn>
                                     <DataGridTextColumn Width="*" Header="Наименование" FontSize="20" Binding="{Binding Name}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Width="*" Header="Доп. информация" FontSize="20" Binding="{Binding AdditionalInformation}">
                                         <DataGridTextColumn.ElementStyle>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="TextWrapping" Value="Wrap"/>
@@ -197,7 +189,7 @@
                                     <TextBox x:Name="AddReader_AdressTBX" MaxLength="50" Margin="5"/>
                                     <TextBlock Text="Телефон" Margin="5"/>
                                     <TextBox x:Name="AddReader_PhoneTBX" MaxLength="20" Margin="5"/>
-                                    <TextBlock Text="Пасспортные данные" Margin="5"/>
+                                    <TextBlock Text="Паспортные данные" Margin="5"/>
                                     <TextBox x:Name="AddReader_PassportDataTBX" Height="60" MaxLength="50" Margin="5"/>
                                     <TextBlock Text="Дата регистрации" Margin="5"/>
                                     <DatePicker x:Name="AddReader_DatePicker" Width="370" Height="30" MouseEnter="AddReader_DatePicker_MouseEnter"/>
@@ -229,71 +221,57 @@
                                 <TextBlock Text="Автор" VerticalAlignment="Center"/>
                                 <TextBox Name="GetBook_AuthorTBX" Margin="10"/>
                                 <Button x:Name="SearchBookButton" Content="Искать" Click="SearchBookButton_Click"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button x:Name="AddBookToReader1Button" Content="Добавить" IsEnabled="False" 
+                                <Button x:Name="ChangeBookButton" Content="Именить" Click="ChangeBookButton_Click" Margin="10"/>
+                                <Button x:Name="AddBookToReader1Button" Content="Добавить" IsEnabled="False" 
                                                 Visibility="Hidden" Click="AddBookToReaderButton1_Click"/>
-                                        <Button x:Name="CanselAddBookToReader1Button" Content="Отмена" IsEnabled="False" 
-                                                Visibility="Hidden" Grid.Column="1" Click="CanselAddBookToReaderButton1_Click"/>
-                                    </Grid>
-                                </StackPanel>
+                                <Button x:Name="CanselAddBookToReader1Button" Content="Отмена" IsEnabled="False" 
+                                                Visibility="Hidden" Click="CanselAddBookToReaderButton1_Click" Margin="10"/>
                             </StackPanel>
                             <!--Аналагично: список книг-->
-                            <DataGrid x:Name="ItemsDG" AutoGenerateColumns="False" 
+                                <DataGrid x:Name="ItemsDG" AutoGenerateColumns="False" 
                                       Margin="0,0,10,10" RowHeaderWidth="0"  
                                       CanUserAddRows="False" CanUserDeleteRows="False" 
                                       CanUserResizeColumns="True" CanUserResizeRows="True" 
                                       CanUserSortColumns="True" Grid.Column="1" 
-                                      Grid.Row="1" Grid.ColumnSpan="2" MouseDoubleClick="ItemsDG_MouseDoubleClick">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Номер" FontSize="20" Binding="{Binding InventaryNumber}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Раздел" FontSize="20" Binding="{Binding Section}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Width="*" Header="Автор" FontSize="20" Binding="{Binding Author}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Width="*" Header="Наименование" FontSize="20" Binding="{Binding Name}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Width="*" Header="Доп. информация" FontSize="20" Binding="{Binding AdditionalInformation}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                    <DataGridTextColumn Width="*" Header="Номер по т. Хавкиной" FontSize="20" Binding="{Binding HavkinaNumber}">
-                                        <DataGridTextColumn.ElementStyle>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </DataGridTextColumn.ElementStyle>
-                                    </DataGridTextColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                      Grid.ColumnSpan="2" MouseDoubleClick="ItemsDG_MouseDoubleClick">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Номер" FontSize="20" Binding="{Binding InventaryNumber}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="*" Header="Раздел" FontSize="20" Binding="{Binding Section}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Width="*" Header="Автор" FontSize="20" Binding="{Binding Author}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Width="*" Header="Наименование" FontSize="20" Binding="{Binding Name}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Width="*" Header="Номер по т. Хавкиной" FontSize="20" Binding="{Binding HavkinaNumber}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
                         </Grid>
                     </TabItem>
                     <!--Добавить в библиотеку новую книгу-->
@@ -310,8 +288,8 @@
                                     <TextBlock Margin="5" Text="Раздел:"/>
                                     <TextBox Name="AddBook_SectionTBX" MaxLength="100" Margin="10"/>
                                     <TextBlock Margin="5" Text="Автор:"/>
-                                    <TextBox Name="AddBook_AuthorTBX" MaxLength="30" Margin="10"/>
-                                    <TextBlock Margin="5" TextWrapping="Wrap" Text="Название:"/>
+                                    <TextBox Name="AddBook_AuthorTBX" MaxLength="100" Margin="10"/>
+                                    <TextBlock Margin="5" TextWrapping="Wrap" Text="Наименование:"/>
                                     <TextBox Name="AddBook_NameTBX" MaxLength="100" Margin="10"/>
                                     <TextBlock Margin="5" Text="Доп. информация:"/>
                                     <TextBox Name="AddBook_AdditionalInformationTBX" MaxLength="200" Height="90" Margin="10"/>

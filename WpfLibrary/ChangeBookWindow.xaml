@@ -1,0 +1,60 @@
+﻿<Window x:Class="WpfLibrary.ChangeBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfLibrary"
+        mc:Ignorable="d"
+        Title="ChangeBookWindow" Height="600" Width="800"  ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="Height" Value="75"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Width" Value="370"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+    <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" Margin="4,33,-4,-33">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Margin="5" Text="Инвентарный номер:"/>
+                <TextBox Name="ChangeBook_InventaryNumberTBX" Margin="5"/>
+                <TextBlock Margin="5" Text="Раздел:"/>
+                <TextBox Name="ChangeBook_SectionTBX" MaxLength="100" Margin="5"/>
+                <TextBlock Margin="5" Text="Автор:"/>
+                <TextBox Name="ChangeBook_AuthorTBX" MaxLength="100" Margin="5"/>
+                <TextBlock Margin="5" TextWrapping="Wrap" Text="Название:"/>
+                <TextBox Name="ChangeBook_NameTBX" MaxLength="100" Margin="5"/>
+                <TextBlock Margin="5" Text="Доп. информация:"/>
+                <TextBox Name="ChangeBook_AdditionalInformationTBX" MaxLength="200" Height="90" Margin="5"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <TextBlock Margin="5" Text="Номер по т. Хавкиной:"/>
+                <TextBox Name="ChangeBook_HavkinaNumberTBX" MaxLength="20" Margin="5"/>
+                <TextBlock Margin="5" Text="Аннотация:"/>
+                <TextBox Name="ChangeBook_AnnotationTBX" MaxLength="400" Height="90" Margin="5"/>
+                <Button x:Name="ChangeBookButton" Content="Готово" Width="130" Margin="0,40,0,40" Click="ChangeBookButton_Click"/>
+                <Button x:Name="DeleteBookButton" Width="130" Click="DeleteBookButton_Click">
+                    <TextBlock Text="Удалить" TextWrapping="Wrap" TextAlignment="Center"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

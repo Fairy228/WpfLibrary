@@ -5,7 +5,7 @@ using System.IO;
 
 namespace WpfLibrary.Logic
 {
-    class Library : ILibrary
+    public class Library : ILibrary
     {
         private SqlConnection connection;
         private SqlCommand cmd = new SqlCommand();
@@ -82,6 +82,31 @@ namespace WpfLibrary.Logic
             }
         }
 
+        public void UpdateBook(int BookId, Book updatedBook)
+        {
+            try
+            {
+                connection.Open();
+                cmd.Parameters.AddWithValue("Id", BookId);
+                cmd.Parameters.AddWithValue("InventaryNumber", updatedBook.InventaryNumber);
+                cmd.Parameters.AddWithValue("Section", updatedBook.Section);
+                cmd.Parameters.AddWithValue("Author", updatedBook.Author);
+                cmd.Parameters.AddWithValue("Name", updatedBook.Name);
+                cmd.Parameters.AddWithValue("AdditionalInformation", updatedBook.AdditionalInformation);
+                cmd.Parameters.AddWithValue("HavkinaNumber", updatedBook.HavkinaNumber);
+                cmd.Parameters.AddWithValue("Annotation", updatedBook.Annotation);
+
+                cmd.CommandText = @"UPDATE [Books] SET InventaryNumber = @InventaryNumber, Section = @Section,
+                            Author = @Author, Name = @Name, AdditionalInformation = @AdditionalInformation,
+                            HavkinaNumber = @HavkinaNumber, Annotation = @Annotation WHERE InventaryNumber = @Id";
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
         public Book GetBook(int InventaryNumber)
         {
             try
@@ -127,8 +152,7 @@ namespace WpfLibrary.Logic
             {
                 Book book = new Book();
                 connection.Open();
-                cmd.Parameters.AddWithValue("Name", BookName);
-                cmd.CommandText = "SELECT * FROM [Books] WHERE Name = @Name";
+                cmd.CommandText = "SELECT * FROM [Books] WHERE Name LIKE '%" + BookName + "%'";
                 reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -182,7 +206,8 @@ namespace WpfLibrary.Logic
                         book.Annotation = reader[6].ToString();
                         book.ReaderId = reader[7].ToString();
                         book.DateOfIssue = DateTime.Parse(reader[8].ToString());
-                        books.Add(book);
+                        if (book.Name != "") 
+                            books.Add(book);
                     }
                 }
                 cmd.Parameters.Clear();
@@ -209,7 +234,7 @@ namespace WpfLibrary.Logic
                 List<Book> books = new List<Book>();
                 connection.Open();
                 cmd.Parameters.AddWithValue("Author", Author);
-                cmd.CommandText = "SELECT * FROM [Books] WHERE Author = @Author";
+                cmd.CommandText = "SELECT * FROM [Books] WHERE Author LIKE '%" + Author + "%'";
                 reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
@@ -225,7 +250,8 @@ namespace WpfLibrary.Logic
                         book.Annotation = reader[6].ToString();
                         book.ReaderId = reader[7].ToString();
                         book.DateOfIssue = DateTime.Parse(reader[8].ToString());
-                        books.Add(book);
+                        if (book.Name != "")
+                            books.Add(book);
                     }
                 }
                 cmd.Parameters.Clear();

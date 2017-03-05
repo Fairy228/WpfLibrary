@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace WpfLibrary.Logic
 {
-    class Book
+    public class Book
     {
         public Book()
         {

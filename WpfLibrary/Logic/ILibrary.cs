@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WpfLibrary.Logic
 {
-    interface ILibrary
+    public interface ILibrary
     {
         void AddBook(Book newBook);
 
